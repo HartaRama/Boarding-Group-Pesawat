@@ -1,4 +1,4 @@
-# BOARDING GROUP PESAWAT
+# PRIORITAS PESAWAT
 
 Anggota Kelompok:
 * MUHAMMAD ZIDAN KHAIRAN (140810200019)
@@ -18,11 +18,8 @@ Agar penumpang yang memiliki kepentingan lebih mendesak dapat didahulukan jadwal
 Cara penggunaan aplikasi ini adalah dengan mengisi data grup penumpang pesawat lalu kemudian setelah data diisikan akan terbentuk jadwal keberangkatan yang diatur berdasarkan skala prioritas. Sistemnya yaitu dengan menggunakan struktur data stack yang berisikan jadwal keberangkatan dan struktur data priority queue yang berisikan data penumpang. Kedua struktur data ini dibangun menggunakan struktur data linked list.
 
 ## Gambar Rancangan Antar Muka
-<!--
-Buat rancangan antar muka selengkap mungkin sesuai fungsi aplikasinya. rancangan antar muka
-diusahakan serapih dan seindah mungkin. tools yang digunakan dalam pembuatan rancangan gambar
-dibebaskan sesuai kreatifitas kalian
-!-->
+
+
 
 ## Rencana Pengerjaan Projek
 
