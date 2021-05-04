@@ -1,9 +1,9 @@
 # JUDUL_PROYEK
 
 Anggota Kelompok:
-* NAMA (NPM)
-* NAMA (NPM)
-* NAMA (NPM)
+* MUHAMMAD ZIDAN KHAIRAN (140810200019)
+* HARTA RAMA (140810200027)
+* AZKA GHAFARA PUTRA AGUNG (140810200037)
 ---
 ## Latar Belakang
 
@@ -22,7 +22,6 @@ dibebaskan sesuai kreatifitas kalian
 
 
 ## Rencana Pengerjaan Projek
-## Gambar Rancangan Antar Muka
 <!--
 Dalam kondisi pandemi seperti ini, tidak memungkinkan untuk bertemu bertatap muka. Maka dari itu
 jelaskan bagaimana kalian bekerja sama, berkoordinasi, pembagian kerja.Tools apa yang kalian gunakan
