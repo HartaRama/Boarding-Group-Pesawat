@@ -19,8 +19,8 @@ Cara penggunaan aplikasi ini adalah dengan mengisi data grup penumpang pesawat l
 
 ## Gambar Rancangan Antar Muka
 
-![](img/Input.jpeg)
-![](img/Output.jpeg)
+![](img/Input.jpg)
+![](img/Output.jpg)
 
 ## Rencana Pengerjaan Projek
 
