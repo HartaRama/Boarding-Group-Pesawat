@@ -42,7 +42,7 @@ void push(stack& top, pointerL newElement) {
     }
 }
 
-void pop(stack& top, pointerL& pDel) {
+string pop(stack& top, pointerL& pDel) {
     if (isEmpty(top)) {
         pDel = nullptr;
     } else if (top->next == nullptr) {
@@ -53,6 +53,7 @@ void pop(stack& top, pointerL& pDel) {
         top = top->next;
         pDel->next = nullptr;
     }
+    return pDel->hari;
 }
 
 void transversal(stack top) {
