@@ -54,10 +54,8 @@ int main() {
                 }
             } while (j != 1);
             cout << endl;
-            createNama(newElementQ, nama);
-            enQueue(qNama, newElementQ);
-            createKepentingan(newElementQ, kepentingan);
-            enQueue(qKepentingan, newElementQ);
+            createElementQ(newElementQ, nama, kepentingan);
+            enQueue(q, newElementQ);
         } else if (opsi == "2") {
             jalan = 0;
         }
