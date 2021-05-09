@@ -7,8 +7,8 @@ struct element {
     element *next;
 };
 
-typedef element* pointerL;
-typedef pointerL stack;
+typedef element* pointerS;
+typedef pointerS stack;
 stack top;
 
 string peek(stack top) {
@@ -27,13 +27,13 @@ void createStack(stack& top) {
     top = nullptr;
 }
 
-void createElement(pointerL& newElement, string hari) {
+void createElementS(pointerS& newElement, string hari) {
     newElement = new element;
     newElement->hari = hari;
     newElement->next = nullptr;
 }
 
-void push(stack& top, pointerL newElement) {
+void push(stack& top, pointerS newElement) {
     if(isEmpty(top)) {
         top = newElement;
     } else {
@@ -42,7 +42,7 @@ void push(stack& top, pointerL newElement) {
     }
 }
 
-string pop(stack& top, pointerL& pDel) {
+string pop(stack& top, pointerS& pDel) {
     if (isEmpty(top)) {
         pDel = nullptr;
     } else if (top->next == nullptr) {
@@ -57,7 +57,7 @@ string pop(stack& top, pointerL& pDel) {
 }
 
 void transversal(stack top) {
-    pointerL pHelp = top;
+    pointerS pHelp = top;
     if (isEmpty(top)) {
         std::cout << "Stack is empty.\n";
     } else {

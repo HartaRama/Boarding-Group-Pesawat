@@ -20,12 +20,13 @@ void createQueue(queue& q) {
     q.tail = nullptr;
 }
 
-void createElement(pointerQ& newElement, string data, int priority) {
+void createElementQ(pointerQ& newElement, string data, int priority) {
     newElement = new node;
     newElement->data = data;
     newElement->priority = priority;
     newElement->next = nullptr;
 }
+
 string front(queue q) {
     return q.head->data;
 }
@@ -65,7 +66,7 @@ void enQueue(queue& q, pointerQ newElement) {
     }
 }
 
-void dequeue(queue& q, pointerQ delElement) {
+string dequeue(queue& q, pointerQ delElement) {
     if (isEmpty(q)) {
         delElement = nullptr;
     } else if (q.head->next == nullptr) {
@@ -77,4 +78,21 @@ void dequeue(queue& q, pointerQ delElement) {
         q.head = q.head->next;
         delElement->next = nullptr;
     }
+    return delElement->data;
+}
+
+string headPenting(queue q) {
+    string kepentingan;
+    if (q.head->priority == 1) {
+        kepentingan = "Medis/Kesehatan";
+    } else if (q.head->priority == 2) {
+        kepentingan = "Militer/Polisi";
+    } else if (q.head->priority == 3) {
+        kepentingan = "Pemerintahan/Pejabat";
+    } else if (q.head->priority == 4) {
+        kepentingan = "Bisnis/Pedagang";
+    } else if (q.head->priority == 5) {
+        kepentingan = "Warga/Turis";
+    }
+    return kepentingan;
 }
