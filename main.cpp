@@ -1,20 +1,22 @@
 #include <iostream>
 #include <iomanip>
+#include <string>
+#include <ctime>
 
 #include "queue.hpp"
 #include "stack.hpp"
+#include "fungsi.hpp"
 
 using namespace std;
 
 int main() {
-    string nama, opsi;
-    int kepentingan, hapus;
+    string opsi, kepentingan;
+    int tanggal, bulan, tahun;
     int jalan = 1, j;
+    int max = 0;
 
     pointerQ newElementQ, pDelQ;
     pointerS newElementS, pDelL;
-
-    string namaHari[7] = {"Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu", "Minggu"};
 
     createQueue(q);
     createStack(top);
@@ -26,11 +28,11 @@ int main() {
 
     while (jalan != 0) {
         do {
-        cout << "1. Tambah Data\n";
-        cout << "2. Buat Jadwal\n";
+            cout << "1. Tambah Data\n";
+            cout << "2. Buat Jadwal\n";
 
-        cout << "\nPilih Opsi: ";
-        cin >> opsi;
+            cout << "\nPilih Opsi: ";
+            cin >> opsi;
         } while (opsi != "1" && opsi != "2");
 
         if (opsi == "1") {
@@ -41,55 +43,35 @@ int main() {
             cout << "4. Bisnis/Pedagang" << endl;
             cout << "5. Warga/Turis\n" << endl;
 
+            string nama;
+            cout << "Nama: ";
+            cin >> ws;
+            getline(cin, nama);
+
+            j = 1;
             do {
                 j = 1;
-                cout << "Nama: ";
-                cin >> nama;
-
+                if (j == 0) {
+                    cout << "\n\nNama: " << nama << endl;
+                }
                 cout << "Kepentingan: ";
                 cin >> kepentingan;
-                if (kepentingan < 1 || kepentingan > 5) {
+                if (kepentingan != "1" && kepentingan != "2" && kepentingan != "3" &&
+                    kepentingan != "4" && kepentingan != "5") {
                     j = 0;
                     cout << "Tolong masukkan pilihan dengan benar.";
                 }
-            } while (j != 1);
+            } while (j == 0);
             cout << endl;
             createElementQ(newElementQ, nama, kepentingan);
             enQueue(q, newElementQ);
         } else if (opsi == "2") {
-            jalan = 0;
-        }
-    }
-
-    cout << "\n";
-    cout << setw(66) << setfill('-');
-    cout << "\n";
-    cout << "| ";
-    cout << setw(10) << setfill(' ') << "Hari";
-    cout << " | ";
-    cout << setw(25) << setfill(' ') << "Kepentingan";
-    cout << " | " ;
-    cout << setw(20) << setfill(' ') << "Nama";
-    cout << " |" ;
-    cout << "\n";
-    cout << setw(66) << setfill('-');
-    cout << "\n";
-
-    while (!isEmpty(q)) {
-        if (isEmpty(top)) {
-            for (int i = 6; i >= 0; i--) {
-                createElementS(newElementS, namaHari[i]);
-                push(top, newElementS);
+            if (isEmpty(q)) {
+                cout << endl << "Belum ada data yang dimasukkan." << endl;
+            } else {
+                jalan = 0;
             }
         }
-        cout << "| ";
-        cout << setw(10) << setfill(' ') << pop(top, pDelL);
-        cout << " | ";
-        cout << setw(25) << setfill(' ') << headPenting(q);
-        cout << " | " ;
-        cout << setw(20) << setfill(' ') << dequeue(q, pDelQ);
-        cout << " |" ;
-        cout << endl;
     }
-    cout << setw(65) << setfill('-') << "-";
+    tampilData();
 }

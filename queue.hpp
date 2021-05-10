@@ -4,7 +4,7 @@ using namespace std;
 
 struct node {
     string data;
-    int priority;
+    string priority;
     node *next;
 };
 typedef node* pointerQ;
@@ -20,7 +20,7 @@ void createQueue(queue& q) {
     q.tail = nullptr;
 }
 
-void createElementQ(pointerQ& newElement, string data, int priority) {
+void createElementQ(pointerQ& newElement, string data, string priority) {
     newElement = new node;
     newElement->data = data;
     newElement->priority = priority;
@@ -83,15 +83,15 @@ string dequeue(queue& q, pointerQ delElement) {
 
 string headPenting(queue q) {
     string kepentingan;
-    if (q.head->priority == 1) {
+    if (q.head->priority == "1") {
         kepentingan = "Medis/Kesehatan";
-    } else if (q.head->priority == 2) {
+    } else if (q.head->priority == "2") {
         kepentingan = "Militer/Polisi";
-    } else if (q.head->priority == 3) {
+    } else if (q.head->priority == "3") {
         kepentingan = "Pemerintahan/Pejabat";
-    } else if (q.head->priority == 4) {
+    } else if (q.head->priority == "4") {
         kepentingan = "Bisnis/Pedagang";
-    } else if (q.head->priority == 5) {
+    } else if (q.head->priority == "5") {
         kepentingan = "Warga/Turis";
     }
     return kepentingan;
