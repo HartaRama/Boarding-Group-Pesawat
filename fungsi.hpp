@@ -137,7 +137,7 @@ void tampilData() {
     }
 
     cout << "\n";
-    cout << setw(29 + maxOpsi + maxNama) << setfill('-');
+    cout << setw(30 + maxOpsi + maxNama) << setfill('-');
     cout << "\n";
     cout << "| ";
     cout << setw(6) << setfill(' ') << "Hari";
@@ -149,7 +149,7 @@ void tampilData() {
     cout << setw(maxNama) << setfill(' ') << "Nama";
     cout << " |" ;
     cout << "\n";
-    cout << setw(29 + maxOpsi + maxNama) << setfill('-');
+    cout << setw(30 + maxOpsi + maxNama) << setfill('-');
     cout << "\n";
 
     while (!isEmpty(q)) {
@@ -173,6 +173,6 @@ void tampilData() {
 
         sistemTanggal(tanggal, bulan, tahun);
     }
-    cout << setw(28 + maxOpsi + maxNama) << setfill('-') << "-";
+    cout << setw(29 + maxOpsi + maxNama) << setfill('-') << "-";
     cout << endl;
 }
