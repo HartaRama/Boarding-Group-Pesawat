@@ -3,8 +3,9 @@
 using namespace std;
 
 struct node {
-    string data;
-    string priority;
+    string nama;
+    string prioritas;
+    string kode;
     node *next;
 };
 typedef node* pointerQ;
@@ -20,15 +21,12 @@ void createQueue(queue& q) {
     q.tail = nullptr;
 }
 
-void createElementQ(pointerQ& newElement, string data, string priority) {
+void createElementQ(pointerQ& newElement, string nama, string prioritas, string kode) {
     newElement = new node;
-    newElement->data = data;
-    newElement->priority = priority;
+    newElement->nama = nama;
+    newElement->prioritas = prioritas;
+    newElement->kode = kode;
     newElement->next = nullptr;
-}
-
-string front(queue q) {
-    return q.head->data;
 }
 
 bool isEmpty(queue q) {
@@ -46,17 +44,17 @@ void enQueue(queue& q, pointerQ newElement) {
         q.head = newElement;
         q.tail = newElement;
     } else {
-        while (newElement->priority >= pHelp->priority) {
+        while (newElement->prioritas >= pHelp->prioritas) {
             if (pHelp->next == nullptr) {
                 break;
             }
             pPrev = pHelp;
             pHelp = pHelp->next;
         }
-        if (pHelp == q.head && newElement->priority < pHelp->priority) {
+        if (pHelp == q.head && newElement->prioritas < pHelp->prioritas) {
             newElement->next = pHelp;
             q.head = newElement;
-        } else if (pHelp == q.tail && newElement->priority > pHelp->priority) {
+        } else if (pHelp == q.tail && newElement->prioritas > pHelp->prioritas) {
             pHelp->next = newElement;
             q.tail = newElement;
         } else {
@@ -78,21 +76,29 @@ string dequeue(queue& q, pointerQ delElement) {
         q.head = q.head->next;
         delElement->next = nullptr;
     }
-    return delElement->data;
+    return delElement->kode;
 }
 
-string headPenting(queue q) {
+string headKepentingan(pointerQ pHelpQ) {
     string kepentingan;
-    if (q.head->priority == "1") {
+    if (pHelpQ->prioritas == "1") {
         kepentingan = "Medis/Kesehatan";
-    } else if (q.head->priority == "2") {
+    } else if (pHelpQ->prioritas == "2") {
         kepentingan = "Militer/Polisi";
-    } else if (q.head->priority == "3") {
+    } else if (pHelpQ->prioritas == "3") {
         kepentingan = "Pemerintahan/Pejabat";
-    } else if (q.head->priority == "4") {
+    } else if (pHelpQ->prioritas == "4") {
         kepentingan = "Bisnis/Pedagang";
-    } else if (q.head->priority == "5") {
+    } else if (pHelpQ->prioritas == "5") {
         kepentingan = "Warga/Turis";
     }
     return kepentingan;
+}
+
+string headNama(pointerQ pHelpQ) {
+    return pHelpQ->nama;
+}
+
+string headKode(pointerQ pHelpQ) {
+    return pHelpQ->kode;
 }

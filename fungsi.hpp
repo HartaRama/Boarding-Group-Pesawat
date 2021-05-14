@@ -63,7 +63,47 @@ void sistemTanggal(int& tanggal, int& bulan, int& tahun) {
     }
 }
 
-void tampilData() {
+void inputData() {
+    string opsi, kepentingan, kode;
+    int jalan = 1, j;
+
+    pointerQ newElementQ, pDelQ;
+
+    cout << "\nOpsi Tingkat Kepentingan:" << endl;
+    cout << "1. Medis/Kesehatan" << endl;
+    cout << "2. Militer/Polisi" << endl;
+    cout << "3. Pemerintahan/Pejabat" << endl;
+    cout << "4. Bisnis/Pedagang" << endl;
+    cout << "5. Warga/Turis\n" << endl;
+
+    string nama;
+    cout << "Nama: ";
+    cin >> ws;
+    getline(cin, nama);
+
+    j = 1;
+    do {
+        if (j == 0) {
+            cout << "\n\nNama: " << nama << endl;
+        }
+        j = 1;
+        cout << "Kepentingan: ";
+        cin >> kepentingan;
+        if (kepentingan != "1" && kepentingan != "2" && kepentingan != "3" &&
+            kepentingan != "4" && kepentingan != "5") {
+            j = 0;
+            cout << "Tolong masukkan pilihan dengan benar.";
+        }
+    } while (j == 0);
+    cout << "Kode: ";
+    cin >> kode;
+    cout << endl;
+
+    createElementQ(newElementQ, nama, kepentingan, kode);
+    enQueue(q, newElementQ);
+}
+
+void outputData() {
     string namaHari[7];
     int kepentingan;
     int hari, tanggal, bulan, tahun;
@@ -112,32 +152,40 @@ void tampilData() {
         namaHari[6] = listHari[5];
     }
 
+    for (int i = 6; i >= 0; i--) {
+        createElementS(newElementS, namaHari[i]);
+        push(top, newElementS);
+    }
+
     pHelpQ = q.head;
     while (pHelpQ != nullptr) {
-        if (pHelpQ->data.length() > maxNama) {
-            maxNama = pHelpQ->data.length();
+        if (pHelpQ->nama.length() > maxNama) {
+            maxNama = pHelpQ->nama.length();
+            if (maxNama < 4) {
+                maxNama += (4 - maxNama);
+            }
         }
         pHelpQ = pHelpQ->next;
     }
 
     pHelpQ = q.head;
     while (pHelpQ != nullptr) {
-        if (pHelpQ->priority == "1" && maxOpsi < 15) {
+        if (pHelpQ->prioritas == "1" && maxOpsi < 15) {
             maxOpsi = 15;
-        } else if (pHelpQ->priority == "2" && maxOpsi < 14) {
+        } else if (pHelpQ->prioritas == "2" && maxOpsi < 14) {
             maxOpsi = 14;
-        } else if (pHelpQ->priority == "3" && maxOpsi < 20) {
+        } else if (pHelpQ->prioritas == "3" && maxOpsi < 20) {
             maxOpsi = 20;
-        } else if (pHelpQ->priority == "4" && maxOpsi < 15) {
+        } else if (pHelpQ->prioritas == "4" && maxOpsi < 15) {
             maxOpsi = 15;
-        } else if (pHelpQ->priority == "5" && maxOpsi < 11) {
+        } else if (pHelpQ->prioritas == "5" && maxOpsi < 11) {
             maxOpsi = 11;
         }
         pHelpQ = pHelpQ->next;
     }
 
     cout << "\n";
-    cout << setw(30 + maxOpsi + maxNama) << setfill('-');
+    cout << setw(37 + maxOpsi + maxNama) << setfill('-');
     cout << "\n";
     cout << "| ";
     cout << setw(6) << setfill(' ') << "Hari";
@@ -147,12 +195,15 @@ void tampilData() {
     cout << setw(maxOpsi) << setfill(' ') << "Kepentingan";
     cout << " | " ;
     cout << setw(maxNama) << setfill(' ') << "Nama";
+    cout << " | " ;
+    cout << "Kode";
     cout << " |" ;
     cout << "\n";
-    cout << setw(30 + maxOpsi + maxNama) << setfill('-');
+    cout << setw(37 + maxOpsi + maxNama) << setfill('-');
     cout << "\n";
 
-    while (!isEmpty(q)) {
+    pHelpQ = q.head;
+    while (pHelpQ != nullptr) {
         if (isEmpty(top)) {
             for (int i = 6; i >= 0; i--) {
                 createElementS(newElementS, namaHari[i]);
@@ -165,14 +216,56 @@ void tampilData() {
         cout << setw(2) << setfill('0') << tanggal << "-";
         cout << setw(2) << setfill('0') << bulan << "-" << tahun;
         cout << " | ";
-        cout << setw(maxOpsi) << setfill(' ') << headPenting(q);
+        cout << setw(maxOpsi) << setfill(' ') << headKepentingan(pHelpQ);
         cout << " | " ;
-        cout << setw(maxNama) << setfill(' ') << dequeue(q, pDelQ);
+        cout << setw(maxNama) << setfill(' ') << headNama(pHelpQ);
+        cout << " | " ;
+        cout << setw(4) << setfill(' ') << headKode(pHelpQ);
         cout << " |" ;
         cout << endl;
 
         sistemTanggal(tanggal, bulan, tahun);
+        pHelpQ = pHelpQ->next;
     }
-    cout << setw(29 + maxOpsi + maxNama) << setfill('-') << "-";
+    cout << setw(36 + maxOpsi + maxNama) << setfill('-') << "-";
     cout << endl;
+}
+
+void deleteData(queue& q, string cari) {
+    int ada = 1;
+    pointerQ delElement, prevElement;
+
+    if (isEmpty(q)) {
+        delElement = nullptr;
+    } else if (q.head->next == nullptr && q.head->kode == cari) {
+        delElement = q.head;
+        q.head = nullptr;
+        q.tail = nullptr;
+    } else if (q.head->next != nullptr && q.head->kode == cari) {
+        delElement = q.head;
+        q.head = q.head->next;
+        delElement->next = nullptr;
+    } else {
+        delElement = q.head;
+        while (delElement->next != nullptr) {
+            if (delElement->kode == cari) {
+                break;
+            }
+            prevElement = delElement;
+            delElement = delElement->next;
+            if (delElement->kode != cari && delElement->next == nullptr) {
+                cout << "Kode tidak ditemukan.\n";
+                ada = 0;
+            }
+        } 
+        if (ada == 1) {
+            if (prevElement != nullptr && delElement->next != nullptr) {
+                prevElement->next = delElement->next;
+                delElement->next = nullptr;
+            } else if (prevElement != nullptr && delElement->next == nullptr) {
+                prevElement->next = nullptr;
+                q.tail = prevElement;
+            }
+        }
+    }
 }
