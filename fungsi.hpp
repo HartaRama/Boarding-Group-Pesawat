@@ -8,13 +8,14 @@ void pilihOpsi(string& opsi) {
         cout << "\n\t1. Input Data\n";
         cout << "\t2. Hapus Data\n";
         cout << "\t3. Tampilkan Jadwal\n";
-        cout << "\t4. Panduan\n";
-        cout << "\t5. Keluar\n";
+        cout << "\t4. Kosongkan Jadwal\n";
+        cout << "\t5. Panduan\n";
+        cout << "\t6. Keluar\n";
             
         cout << "\n\tPilih Opsi: ";
         cin >> opsi;
 
-        if (opsi != "1" && opsi != "2" && opsi != "3" && opsi != "4" && opsi != "5") {
+        if (opsi != "1" && opsi != "2" && opsi != "3" && opsi != "4" && opsi != "5" && opsi != "6") {
             garisBatas();
             cout << "\n" << setw(17) << setfill(' ') << " ";
             cout << "Tolong masukkan opsi sesuai dengan pilihan yang tersedia!" << endl;
@@ -25,7 +26,7 @@ void pilihOpsi(string& opsi) {
         if (i != 0) {
             garisBatas();
         }
-    } while (opsi != "1" && opsi != "2" && opsi != "3" && opsi != "4" && opsi != "5");
+    } while (opsi != "1" && opsi != "2" && opsi != "3" && opsi != "4" && opsi != "5" && opsi != "6");
 }
 
 void sistemTanggal(int& tanggal, int& bulan, int& tahun) {
@@ -443,4 +444,17 @@ void deleteData(queue& q) {
         cout << endl;
         garisBatas();
     }
+}
+
+void kosongkan(queue& q) {
+    pointerQ pHelp, delElement;
+
+    pHelp = q.head;
+    while (!isEmpty(q)) {
+        deQueue(q, delElement);
+    }
+        
+    cout << "\n" << setw(33) << setfill(' ') << " ";
+    cout << "Jadwal sudah dikosongkan!" << endl;
+    garisBatas();
 }

@@ -66,6 +66,20 @@ void enQueue(queue& q, pointerQ newElement) {
     }
 }
 
+void deQueue(queue& q, pointerQ delElement) {
+    if (isEmpty(q)) {
+        delElement = nullptr;
+    } else if (q.head->next == nullptr) {
+        delElement = q.head;
+        q.head = nullptr;
+        q.tail = nullptr;
+    } else {
+        delElement = q.head;
+        q.head = q.head->next;
+        delElement->next = nullptr;
+    }
+}
+
 string headKepentingan(pointerQ pHelpQ) {
     string kepentingan;
     if (pHelpQ->prioritas == "1") {

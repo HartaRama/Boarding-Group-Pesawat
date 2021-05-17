@@ -19,6 +19,7 @@ int main() {
     createStack(top);
 
     pembukaan();
+    garisBatas();
     panduan();
     garisBatas();
 
@@ -43,9 +44,17 @@ int main() {
                 outputData();
             }
         } else if (opsi == "4") {
+            if (isEmpty(q)) {
+                cout << "\n" << setw(30) << setfill(' ') << " ";
+                cout << "Belum ada data yang dimasukkan!" << endl;
+                garisBatas();
+            } else {
+                kosongkan(q);
+            }
+        } else if (opsi == "5") {
             panduan();
             garisBatas();
-        } else if (opsi == "5") {
+        } else if (opsi == "6") {
             jalan = 0;
         }
     }

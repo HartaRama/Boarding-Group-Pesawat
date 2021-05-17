@@ -12,8 +12,17 @@ void pembukaan() {
 
     cout << "\n\n";
 
-    cout << "\tProgram ini dibuat untuk mempermudah pengaturan jadwal penerbangan" << endl;
-    cout << "\tdi Pulau Kodomo yang hanya melayani penerbangan sekali sehari." << endl;
+    cout << setw(16) << setfill(' ') << " ";
+    cout << "Program untuk mengatur jadwal penerbangan dari Pulau Kodomo" << endl;
+    
+    cout << setw(21) << setfill(' ') << " ";
+    cout << "Penerbangan tersedia setiap hari dari Senin-Minggu" << endl;
+    
+    cout << setw(26) << setfill(' ') << " ";
+    cout << "Hanya melayani penerbangan sekali sehari" << endl;
+
+    cout << setw(28) << setfill(' ') << " ";
+    cout << "Pukul 09:00 WPK (Waktu Pulau Kodomo)" << endl;
 }
 
 void panduan() {
