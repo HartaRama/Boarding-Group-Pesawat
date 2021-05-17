@@ -55,16 +55,3 @@ string pop(stack& top, pointerS& pDel) {
     }
     return pDel->hari;
 }
-
-void transversal(stack top) {
-    pointerS pHelp = top;
-    if (isEmpty(top)) {
-        std::cout << "Stack is empty.\n";
-    } else {
-        cout << "Top\n^\n|\n";
-        do {
-            cout << pHelp->hari << "\n";
-            pHelp = pHelp->next;
-        } while (pHelp != nullptr);
-    }
-}

@@ -6,6 +6,7 @@ struct node {
     string nama;
     string prioritas;
     string kode;
+    int jumlah;
     node *next;
 };
 typedef node* pointerQ;
@@ -21,11 +22,12 @@ void createQueue(queue& q) {
     q.tail = nullptr;
 }
 
-void createElementQ(pointerQ& newElement, string nama, string prioritas, string kode) {
+void createElementQ(pointerQ& newElement, string nama, string prioritas, string kode, int jumlah) {
     newElement = new node;
     newElement->nama = nama;
     newElement->prioritas = prioritas;
     newElement->kode = kode;
+    newElement->jumlah = jumlah;
     newElement->next = nullptr;
 }
 
@@ -54,7 +56,7 @@ void enQueue(queue& q, pointerQ newElement) {
         if (pHelp == q.head && newElement->prioritas < pHelp->prioritas) {
             newElement->next = pHelp;
             q.head = newElement;
-        } else if (pHelp == q.tail && newElement->prioritas > pHelp->prioritas) {
+        } else if (pHelp == q.tail && newElement->prioritas >= pHelp->prioritas) {
             pHelp->next = newElement;
             q.tail = newElement;
         } else {
@@ -62,21 +64,6 @@ void enQueue(queue& q, pointerQ newElement) {
             newElement->next = pHelp;
         }
     }
-}
-
-string dequeue(queue& q, pointerQ delElement) {
-    if (isEmpty(q)) {
-        delElement = nullptr;
-    } else if (q.head->next == nullptr) {
-        delElement = q.head;
-        q.head = nullptr;
-        q.tail = nullptr;
-    } else {
-        delElement = q.head;
-        q.head = q.head->next;
-        delElement->next = nullptr;
-    }
-    return delElement->kode;
 }
 
 string headKepentingan(pointerQ pHelpQ) {
@@ -101,4 +88,8 @@ string headNama(pointerQ pHelpQ) {
 
 string headKode(pointerQ pHelpQ) {
     return pHelpQ->kode;
+}
+
+int headJumlah(pointerQ pHelpQ) {
+    return pHelpQ->jumlah;
 }

@@ -1,7 +1,32 @@
-#include <iostream>
-#include <ctime>
+#include "ui.hpp"
 
-using namespace std;
+void pilihOpsi(string& opsi) {
+    int i;
+    do {
+        i = 1;
+        cout << "\n\tMENU UTAMA" << endl;
+        cout << "\n\t1. Input Data\n";
+        cout << "\t2. Hapus Data\n";
+        cout << "\t3. Tampilkan Jadwal\n";
+        cout << "\t4. Panduan\n";
+        cout << "\t5. Keluar\n";
+            
+        cout << "\n\tPilih Opsi: ";
+        cin >> opsi;
+
+        if (opsi != "1" && opsi != "2" && opsi != "3" && opsi != "4" && opsi != "5") {
+            garisBatas();
+            cout << "\n" << setw(17) << setfill(' ') << " ";
+            cout << "Tolong masukkan opsi sesuai dengan pilihan yang tersedia!" << endl;
+            i = 0;
+            garisBatas();
+        }
+
+        if (i != 0) {
+            garisBatas();
+        }
+    } while (opsi != "1" && opsi != "2" && opsi != "3" && opsi != "4" && opsi != "5");
+}
 
 void sistemTanggal(int& tanggal, int& bulan, int& tahun) {
     tanggal += 1;
@@ -46,7 +71,7 @@ void sistemTanggal(int& tanggal, int& bulan, int& tahun) {
             if (bulan != 2 && tanggal == 31) {
                 bulan += 1;
                 tanggal = 1;
-            } else if (bulan == 2 && tanggal == 29) {
+            } else if (bulan == 2 && tanggal == 30) {
                 bulan += 1;
                 tanggal = 1;
             }
@@ -60,52 +85,117 @@ void sistemTanggal(int& tanggal, int& bulan, int& tahun) {
 
     if (bulan > 12) {
         tahun += 1;
+        bulan = 1;
     }
 }
 
 void inputData() {
     string opsi, kepentingan, kode;
+    int jumlah, panjang;
     int jalan = 1, j;
 
     pointerQ newElementQ, pDelQ;
 
-    cout << "\nOpsi Tingkat Kepentingan:" << endl;
-    cout << "1. Medis/Kesehatan" << endl;
-    cout << "2. Militer/Polisi" << endl;
-    cout << "3. Pemerintahan/Pejabat" << endl;
-    cout << "4. Bisnis/Pedagang" << endl;
-    cout << "5. Warga/Turis\n" << endl;
+    input();
 
     string nama;
-    cout << "Nama: ";
+    cout << "\tNama: ";
     cin >> ws;
     getline(cin, nama);
 
     j = 1;
     do {
         if (j == 0) {
-            cout << "\n\nNama: " << nama << endl;
+            input();
+            cout << "\n\tNama: " << nama << endl;
         }
         j = 1;
-        cout << "Kepentingan: ";
+        cout << "\tKepentingan: ";
         cin >> kepentingan;
         if (kepentingan != "1" && kepentingan != "2" && kepentingan != "3" &&
             kepentingan != "4" && kepentingan != "5") {
             j = 0;
-            cout << "Tolong masukkan pilihan dengan benar.";
+            garisBatas();
+            cout << "\n" << setw(17) << setfill(' ') << " ";
+            cout << "Tolong masukkan opsi sesuai dengan pilihan yang tersedia!" << endl;
+            garisBatas();
         }
     } while (j == 0);
-    cout << "Kode: ";
-    cin >> kode;
-    cout << endl;
 
-    createElementQ(newElementQ, nama, kepentingan, kode);
+    j = 1;
+    do {
+        if (j == 0) {
+            input();
+            cout << "\n\tNama: " << nama << endl;
+            cout << "\tKepentingan: " << kepentingan << endl;
+        }
+        j = 1;
+        cout << "\tKode: ";
+        cin >> kode;
+        panjang = (59-kode.length())/2;
+        if (panjang % 2 == 1) {
+            panjang += 1;
+        }
+        pointerQ pHelp = q.head;
+        while (pHelp != nullptr) {
+            if (pHelp->kode == kode) {
+                garisBatas();
+                cout << "\n";
+                cout << setw(panjang) << setfill(' ') << " ";
+                cout << "Kode " << kode << " sudah digunakan data lain.\n";
+                garisBatas();
+                j = 0;
+                break;
+            }
+            pHelp = pHelp->next;
+        }
+    } while (j == 0);
+
+    j = 1;
+    do {
+        if (j == 0) {
+            input();
+            cout << "\n\tNama: " << nama << endl;
+            cout << "\tKepentingan: " << kepentingan << endl;
+            cout << "\tKode: " << kode << endl;
+        }
+        j = 1;
+        cout << "\tJumlah Penumpang: ";
+        cin >> jumlah;
+        if (jumlah > 30) {
+            j = 0;
+            garisBatas();
+            cout << "\n" << setw(25) << setfill(' ') << " ";
+            cout << "Pesawat hanya bisa menampung 30 penumpang!" << endl;
+            garisBatas();
+        } else if (jumlah < 1) {
+            j = 0;
+            garisBatas();
+            cout << "\n" << setw(23) << setfill(' ') << " ";
+            cout << "Setidaknya harus ada satu penumpang terdaftar!" << endl;
+            garisBatas();
+        }
+    } while (j == 0);
+
+    createElementQ(newElementQ, nama, kepentingan, kode, jumlah);
     enQueue(q, newElementQ);
+
+    panjang = (55-kode.length())/2;
+    if (panjang % 2 == 1) {
+        panjang += 1;
+    }
+    garisBatas();
+    cout << endl;
+    cout << setw(panjang) << setfill(' ') << " ";
+    cout << "Data dengan kode " << kode << " sudah ditambahkan.";
+    cout << endl;
+    garisBatas();
 }
 
 void outputData() {
     string namaHari[7];
-    int kepentingan;
+    int kepentingan, kapasitasAwal;
+    int kapasitas = 0;
     int hari, tanggal, bulan, tahun;
     int jalan = 1, j;
     int maxNama = 0;
@@ -184,10 +274,12 @@ void outputData() {
         pHelpQ = pHelpQ->next;
     }
 
+    cout << "\n\tJADWAL PENERBANGAN" << endl;
+
+    cout << "\n\t";
+    cout << setw(49 + maxOpsi + maxNama) << setfill('-');
     cout << "\n";
-    cout << setw(37 + maxOpsi + maxNama) << setfill('-');
-    cout << "\n";
-    cout << "| ";
+    cout << "\t| ";
     cout << setw(6) << setfill(' ') << "Hari";
     cout << " | ";
     cout << setw(10) << setfill(' ') << "Tanggal";
@@ -197,9 +289,11 @@ void outputData() {
     cout << setw(maxNama) << setfill(' ') << "Nama";
     cout << " | " ;
     cout << "Kode";
+    cout << " | " ;
+    cout << "Penumpang";
     cout << " |" ;
-    cout << "\n";
-    cout << setw(37 + maxOpsi + maxNama) << setfill('-');
+    cout << "\n\t";
+    cout << setw(49 + maxOpsi + maxNama) << setfill('-');
     cout << "\n";
 
     pHelpQ = q.head;
@@ -210,37 +304,101 @@ void outputData() {
                 push(top, newElementS);
             }
         }
-        cout << "| ";
-        cout << setw(6) << setfill(' ') << pop(top, pDelL);
-        cout << " | ";
-        cout << setw(2) << setfill('0') << tanggal << "-";
-        cout << setw(2) << setfill('0') << bulan << "-" << tahun;
-        cout << " | ";
-        cout << setw(maxOpsi) << setfill(' ') << headKepentingan(pHelpQ);
-        cout << " | " ;
-        cout << setw(maxNama) << setfill(' ') << headNama(pHelpQ);
-        cout << " | " ;
-        cout << setw(4) << setfill(' ') << headKode(pHelpQ);
-        cout << " |" ;
-        cout << endl;
 
-        sistemTanggal(tanggal, bulan, tahun);
-        pHelpQ = pHelpQ->next;
+        kapasitas += pHelpQ->jumlah;
+        kapasitasAwal = kapasitas - pHelpQ->jumlah;
+        if (kapasitasAwal == 0) {
+            cout << "\t| ";
+            cout << setw(6) << setfill(' ') << peek(top);
+            cout << " | ";
+            cout << setw(2) << setfill('0') << tanggal << "-";
+            cout << setw(2) << setfill('0') << bulan << "-" << tahun;
+            cout << " | ";
+            cout << setw(maxOpsi) << setfill(' ') << headKepentingan(pHelpQ);
+            cout << " | " ;
+            cout << setw(maxNama) << setfill(' ') << headNama(pHelpQ);
+            cout << " | " ;
+            cout << setw(4) << setfill(' ') << headKode(pHelpQ);
+            cout << " | " ;
+            cout << setw(9) << setfill(' ') << headJumlah(pHelpQ);
+            cout << " |" ;
+            cout << endl;
+
+            sistemTanggal(tanggal, bulan, tahun);
+            pHelpQ = pHelpQ->next;
+        } else if (kapasitasAwal != 0 && kapasitas <= 30) {
+            cout << "\t| ";
+            cout << setw(6) << setfill(' ') << " ";
+            cout << " | ";
+            cout << setw(10) << setfill(' ') << " ";
+            cout << " | ";
+            cout << setw(maxOpsi) << setfill(' ') << headKepentingan(pHelpQ);
+            cout << " | " ;
+            cout << setw(maxNama) << setfill(' ') << headNama(pHelpQ);
+            cout << " | " ;
+            cout << setw(4) << setfill(' ') << headKode(pHelpQ);
+            cout << " | " ;
+            cout << setw(9) << setfill(' ') << headJumlah(pHelpQ);
+            cout << " |" ;
+            cout << endl;
+
+            pHelpQ = pHelpQ->next;
+        } else {
+            kapasitas = 0;
+            kapasitas += pHelpQ->jumlah;
+            pop(top, pDelL);
+            cout << "\t| ";
+            cout << setw(6) << setfill(' ') << peek(top);
+            cout << " | ";
+            cout << setw(2) << setfill('0') << tanggal << "-";
+            cout << setw(2) << setfill('0') << bulan << "-" << tahun;
+            cout << " | ";
+            cout << setw(maxOpsi) << setfill(' ') << headKepentingan(pHelpQ);
+            cout << " | " ;
+            cout << setw(maxNama) << setfill(' ') << headNama(pHelpQ);
+            cout << " | " ;
+            cout << setw(4) << setfill(' ') << headKode(pHelpQ);
+            cout << " | " ;
+            cout << setw(9) << setfill(' ') << headJumlah(pHelpQ);
+            cout << " |" ;
+            cout << endl;
+
+            sistemTanggal(tanggal, bulan, tahun);
+            pHelpQ = pHelpQ->next;
+        }
     }
-    cout << setw(36 + maxOpsi + maxNama) << setfill('-') << "-";
+    cout << "\t";
+    cout << setw(48 + maxOpsi + maxNama) << setfill('-') << "-";
     cout << endl;
+    garisBatas();
 }
 
-void deleteData(queue& q, string cari) {
-    int ada = 1;
+void deleteData(queue& q) {
+    int ada = 1, panjang;
+    string cari;
     pointerQ delElement, prevElement;
 
+    cout << "\n\tHAPUS DATA" << endl;
+    cout << "\n\tKode data yang akan dihapus: ";
+    cin >> cari;
+
+    panjang = (69-cari.length())/2;
+    if (panjang % 2 == 1) {
+        panjang += 1;
+    }
     if (isEmpty(q)) {
         delElement = nullptr;
     } else if (q.head->next == nullptr && q.head->kode == cari) {
         delElement = q.head;
         q.head = nullptr;
         q.tail = nullptr;
+    } else if (q.head->next == nullptr && q.head->kode != cari) {
+        garisBatas();
+        cout << "\n";
+        cout << setw(panjang) << setfill(' ') << " ";
+        cout << "Kode " << cari << " tidak ditemukan!" << endl;
+        garisBatas();
+        ada = 0;
     } else if (q.head->next != nullptr && q.head->kode == cari) {
         delElement = q.head;
         q.head = q.head->next;
@@ -254,7 +412,11 @@ void deleteData(queue& q, string cari) {
             prevElement = delElement;
             delElement = delElement->next;
             if (delElement->kode != cari && delElement->next == nullptr) {
-                cout << "Kode tidak ditemukan.\n";
+                garisBatas();
+                cout << "\n";
+                cout << setw(panjang) << setfill(' ') << " ";
+                cout << "Kode " << cari << " tidak ditemukan!" << endl;
+                garisBatas();
                 ada = 0;
             }
         } 
@@ -267,5 +429,18 @@ void deleteData(queue& q, string cari) {
                 q.tail = prevElement;
             }
         }
+    }
+
+    panjang = (59-cari.length())/2;
+    if (panjang % 2 == 1) {
+        panjang += 1;
+    }
+    if (ada != 0) {
+        garisBatas();
+        cout << endl;
+        cout << setw(panjang) << setfill(' ') << " ";
+        cout << "Data dengan kode " << cari << " sudah dihapus.";
+        cout << endl;
+        garisBatas();
     }
 }
