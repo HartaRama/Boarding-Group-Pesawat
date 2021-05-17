@@ -20,9 +20,6 @@ void pembukaan() {
     
     cout << setw(26) << setfill(' ') << " ";
     cout << "Hanya melayani penerbangan sekali sehari" << endl;
-
-    cout << setw(28) << setfill(' ') << " ";
-    cout << "Pukul 09:00 WPK (Waktu Pulau Kodomo)" << endl;
 }
 
 void panduan() {
