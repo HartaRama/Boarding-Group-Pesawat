@@ -387,6 +387,7 @@ void deleteData(queue& q) {
     if (panjang % 2 == 1) {
         panjang += 1;
     }
+
     if (isEmpty(q)) {
         delElement = nullptr;
     } else if (q.head->next == nullptr && q.head->kode == cari) {
@@ -421,6 +422,7 @@ void deleteData(queue& q) {
                 ada = 0;
             }
         } 
+
         if (ada == 1) {
             if (prevElement != nullptr && delElement->next != nullptr) {
                 prevElement->next = delElement->next;
@@ -436,6 +438,7 @@ void deleteData(queue& q) {
     if (panjang % 2 == 1) {
         panjang += 1;
     }
+
     if (ada != 0) {
         garisBatas();
         cout << endl;
