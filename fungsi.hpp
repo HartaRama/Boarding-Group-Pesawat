@@ -100,7 +100,7 @@ void inputData() {
     input();
 
     string nama;
-    cout << "\tNama: ";
+    cout << "\tNama             : ";
     cin >> ws;
     getline(cin, nama);
 
@@ -108,10 +108,10 @@ void inputData() {
     do {
         if (j == 0) {
             input();
-            cout << "\n\tNama: " << nama << endl;
+            cout << "\tNama             : " << nama << endl;
         }
         j = 1;
-        cout << "\tKepentingan: ";
+        cout << "\tKepentingan      : ";
         cin >> kepentingan;
         if (kepentingan != "1" && kepentingan != "2" && kepentingan != "3" &&
             kepentingan != "4" && kepentingan != "5") {
@@ -127,11 +127,11 @@ void inputData() {
     do {
         if (j == 0) {
             input();
-            cout << "\n\tNama: " << nama << endl;
-            cout << "\tKepentingan: " << kepentingan << endl;
+            cout << "\tNama             : " << nama << endl;
+            cout << "\tKepentingan      : " << kepentingan << endl;
         }
         j = 1;
-        cout << "\tKode: ";
+        cout << "\tKode             : ";
         cin >> kode;
         panjang = (59-kode.length())/2;
         if (panjang % 2 == 1) {
@@ -156,12 +156,12 @@ void inputData() {
     do {
         if (j == 0) {
             input();
-            cout << "\n\tNama: " << nama << endl;
-            cout << "\tKepentingan: " << kepentingan << endl;
-            cout << "\tKode: " << kode << endl;
+            cout << "\tNama             : " << nama << endl;
+            cout << "\tKepentingan      : " << kepentingan << endl;
+            cout << "\tKode             : " << kode << endl;
         }
         j = 1;
-        cout << "\tJumlah Penumpang: ";
+        cout << "\tJumlah Penumpang : ";
         cin >> jumlah;
         if (jumlah > 30) {
             j = 0;
@@ -201,6 +201,7 @@ void outputData() {
     int jalan = 1, j;
     int maxNama = 0;
     int maxOpsi = 0;
+    int maxKode = 0;
 
     pointerQ newElementQ, pDelQ, pHelpQ;
     pointerS newElementS, pDelL, pHelpS;
@@ -275,10 +276,21 @@ void outputData() {
         pHelpQ = pHelpQ->next;
     }
 
+    pHelpQ = q.head;
+    while (pHelpQ != nullptr) {
+        if (pHelpQ->kode.length() > maxKode) {
+            maxKode = pHelpQ->kode.length();
+            if (maxKode < 4) {
+                maxKode += (4 - maxKode);
+            }
+        }
+        pHelpQ = pHelpQ->next;
+    }
+
     cout << "\n\tJADWAL PENERBANGAN" << endl;
 
     cout << "\n\t";
-    cout << setw(49 + maxOpsi + maxNama) << setfill('-');
+    cout << setw(45 + maxOpsi + maxNama + maxKode) << setfill('-');
     cout << "\n";
     cout << "\t| ";
     cout << setw(6) << setfill(' ') << "Hari";
@@ -289,12 +301,12 @@ void outputData() {
     cout << " | " ;
     cout << setw(maxNama) << setfill(' ') << "Nama";
     cout << " | " ;
-    cout << "Kode";
+    cout << setw(maxKode) << setfill(' ') << "Kode";
     cout << " | " ;
     cout << "Penumpang";
     cout << " |" ;
     cout << "\n\t";
-    cout << setw(49 + maxOpsi + maxNama) << setfill('-');
+    cout << setw(45 + maxOpsi + maxNama + maxKode) << setfill('-');
     cout << "\n";
 
     pHelpQ = q.head;
@@ -319,7 +331,7 @@ void outputData() {
             cout << " | " ;
             cout << setw(maxNama) << setfill(' ') << headNama(pHelpQ);
             cout << " | " ;
-            cout << setw(4) << setfill(' ') << headKode(pHelpQ);
+            cout << setw(maxKode) << setfill(' ') << headKode(pHelpQ);
             cout << " | " ;
             cout << setw(9) << setfill(' ') << headJumlah(pHelpQ);
             cout << " |" ;
@@ -337,7 +349,7 @@ void outputData() {
             cout << " | " ;
             cout << setw(maxNama) << setfill(' ') << headNama(pHelpQ);
             cout << " | " ;
-            cout << setw(4) << setfill(' ') << headKode(pHelpQ);
+            cout << setw(maxKode) << setfill(' ') << headKode(pHelpQ);
             cout << " | " ;
             cout << setw(9) << setfill(' ') << headJumlah(pHelpQ);
             cout << " |" ;
@@ -358,7 +370,7 @@ void outputData() {
             cout << " | " ;
             cout << setw(maxNama) << setfill(' ') << headNama(pHelpQ);
             cout << " | " ;
-            cout << setw(4) << setfill(' ') << headKode(pHelpQ);
+            cout << setw(maxKode) << setfill(' ') << headKode(pHelpQ);
             cout << " | " ;
             cout << setw(9) << setfill(' ') << headJumlah(pHelpQ);
             cout << " |" ;
@@ -369,7 +381,7 @@ void outputData() {
         }
     }
     cout << "\t";
-    cout << setw(48 + maxOpsi + maxNama) << setfill('-') << "-";
+    cout << setw(44 + maxOpsi + maxNama + maxKode) << setfill('-') << "-";
     cout << endl;
     garisBatas();
 }

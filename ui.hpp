@@ -20,6 +20,9 @@ void pembukaan() {
     
     cout << setw(26) << setfill(' ') << " ";
     cout << "Hanya melayani penerbangan sekali sehari" << endl;
+
+    cout << setw(20) << setfill(' ') << " ";
+    cout << "Kapasitas pesawat mampu menampung maksimal 30 orang" << endl;
 }
 
 void panduan() {
@@ -28,6 +31,7 @@ void panduan() {
     cout << "\tInput Data       : Menginput data baru" << endl;
     cout << "\tHapus Data       : Menghapus data yang sudah diinput" << endl;
     cout << "\tTampilkan Jadwal : Menampilkan jadwal berdasarkan data yang sudah diinput" << endl;
+    cout << "\tKosongkan Jadwal : Menghapus keseluruhan data yang sudah diinput" << endl;
     cout << "\tPanduan          : Menampilkan panduan" << endl;
     cout << "\tKeluar           : Menutup aplikasi" << endl;
 }
