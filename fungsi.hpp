@@ -1,4 +1,16 @@
+#include <sstream>
+
 #include "ui.hpp"
+
+bool checkNumber(string str) {
+    for (int i = 0; i < str.length(); i++) {
+        if (isdigit(str[i]) == false) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+}
 
 void pilihOpsi(string& opsi) {
     int i;
@@ -91,8 +103,8 @@ void sistemTanggal(int& tanggal, int& bulan, int& tahun) {
 }
 
 void inputData() {
-    string opsi, kepentingan, kode;
-    int jumlah, panjang;
+    string opsi, kepentingan, kode, jumlahS;
+    int panjang, jumlah;
     int jalan = 1, j;
 
     pointerQ newElementQ, pDelQ;
@@ -162,19 +174,31 @@ void inputData() {
         }
         j = 1;
         cout << "\tJumlah Penumpang : ";
-        cin >> jumlah;
-        if (jumlah > 30) {
+        cin >> ws;
+        getline(cin, jumlahS);
+        if (!checkNumber(jumlahS)) {
             j = 0;
             garisBatas();
-            cout << "\n" << setw(25) << setfill(' ') << " ";
-            cout << "Pesawat hanya bisa menampung 30 penumpang!" << endl;
+            cout << "\n" << setw(26) << setfill(' ') << " ";
+            cout << "Tolong masukan dengan jumlah penumpang!" << endl;
             garisBatas();
-        } else if (jumlah < 1) {
-            j = 0;
-            garisBatas();
-            cout << "\n" << setw(23) << setfill(' ') << " ";
-            cout << "Setidaknya harus ada satu penumpang terdaftar!" << endl;
-            garisBatas();
+        } else {
+            stringstream x(jumlahS);
+            jumlah = 0;
+            x >> jumlah;
+            if (jumlah > 30) {
+                j = 0;
+                garisBatas();
+                cout << "\n" << setw(25) << setfill(' ') << " ";
+                cout << "Pesawat hanya bisa menampung 30 penumpang!" << endl;
+                garisBatas();
+            } else if (jumlah < 1) {
+                j = 0;
+                garisBatas();
+                cout << "\n" << setw(23) << setfill(' ') << " ";
+                cout << "Setidaknya harus ada satu penumpang terdaftar!" << endl;
+                garisBatas();
+            }
         }
     } while (j == 0);
 
